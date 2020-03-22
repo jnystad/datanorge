@@ -122,8 +122,14 @@ function App() {
       <Table table={table} />
       <Pagination table={table} />
       <footer>
-        Data hentet fra{" "}
-        <a href="https://data.norge.no/">Digitaliseringsdirektoratet</a>.
+        <p>
+          Data hentet fra{" "}
+          <a href="https://data.norge.no/">Digitaliseringsdirektoratet</a>.
+        </p>
+        <p>
+          Utviklet av Jørgen Nystad.{" "}
+          <a href="https://github.com/jnystad/datanorge">GitHub</a>
+        </p>
       </footer>
     </div>
   );

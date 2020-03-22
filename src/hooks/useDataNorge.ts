@@ -13,11 +13,14 @@ export default function useDataNorge() {
   useEffect(() => {
     const getPage = function(page: number) {
       const url = `${baseUrl}?page=${page}`;
-      request.get(url).then(res => {
-        const datasets = res.body.datasets;
-        setData(data => [...data, ...datasets]);
-        if (datasets.length > 0) getPage(page + 1);
-      });
+      request
+        .get(url)
+        .then(res => {
+          const datasets = res.body.datasets;
+          setData(data => [...data, ...datasets]);
+          if (datasets.length > 0) getPage(page + 1);
+        })
+        .catch(err => console.warn(err));
     };
 
     getPage(1);
