@@ -1,0 +1,40 @@
+{
+  "name": "datanorge",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/node": "^12.12.30",
+    "@types/react": "^16.9.25",
+    "@types/react-dom": "^16.9.5",
+    "@types/react-table": "^7.0.12",
+    "@types/superagent": "^4.1.7",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "react-table": "^7.0.0",
+    "superagent": "^5.2.2",
+    "typescript": "^3.7.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "proxy": "https://data.norge.no",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

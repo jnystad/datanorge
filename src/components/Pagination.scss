@@ -1,0 +1,36 @@
+.pagination {
+  padding: 10px 0;
+  text-align: center;
+
+  span {
+    display: inline-block;
+    margin: 10px;
+  }
+
+  button {
+    background: #ddeaf0;
+    width: 33px;
+    height: 33px;
+    border-radius: 10px;
+    border: 1px solid #abc;
+    margin: 0 2px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #068;
+
+    &:hover {
+      background: #ddd;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      background: #eee;
+      cursor: default;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

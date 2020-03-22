@@ -1,0 +1,60 @@
+.App {
+  .filter {
+    max-width: 100%;
+
+    select {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  @media (min-width: 600px) {
+    .tags {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .tag,
+  .format {
+    display: inline-block;
+    padding: 2px 4px;
+    border: 1px solid #aca;
+    background: #ade;
+    font-size: 12px;
+    border-radius: 3px;
+    margin: 0 2px;
+  }
+
+  .format {
+    background: #09a;
+    font-weight: bold;
+    color: #fff;
+    border-color: #030;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #005577;
+    h1 {
+      flex: 10 0 300px;
+    }
+
+    input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      flex: 1 1 200px;
+      margin: 10px;
+    }
+  }
+
+  footer {
+    padding: 20px;
+    text-align: center;
+    opacity: 0.7;
+  }
+}
