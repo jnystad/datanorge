@@ -17,7 +17,8 @@ const Pagination: SFC<PaginationProps> = ({ table }) => {
     gotoPage,
     nextPage,
     previousPage,
-    state: { pageIndex }
+    setPageSize,
+    state: { pageIndex, pageSize }
   } = table;
 
   useEffect(() => {
@@ -36,6 +37,10 @@ const Pagination: SFC<PaginationProps> = ({ table }) => {
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [canPreviousPage, previousPage, canNextPage, nextPage]);
+
+  useEffect(() => {
+    localStorage.setItem("datanorge-pageSize", String(pageSize));
+  }, [pageSize]);
 
   return (
     <div className="pagination">
@@ -82,6 +87,17 @@ const Pagination: SFC<PaginationProps> = ({ table }) => {
           />
         </svg>
       </button>
+      <br />
+      <select
+        style={{ width: "250px" }}
+        value={pageSize}
+        onChange={e => setPageSize(parseInt(e.target.value))}
+      >
+        <option value="20">20 per side</option>
+        <option value="50">50 per side</option>
+        <option value="100">100 per side</option>
+        <option value="10000">Alt på en side</option>
+      </select>
     </div>
   );
 };

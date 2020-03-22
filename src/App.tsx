@@ -96,7 +96,7 @@ const tableOptions: DatasetTableOptions = {
   columns,
   defaultCanFilter: false,
   initialState: {
-    pageSize: 20,
+    pageSize: parseInt(localStorage.getItem("datanorge-pageSize") || "20"),
     sortBy
   },
   data: []
