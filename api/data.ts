@@ -6,7 +6,7 @@ module.exports = (req: NowRequest, res: NowResponse) => {
     .get("https://data.norge.no/api/dcat/data.json?page=" + req.query.page)
     .then(r => {
       res.removeHeader("Cache-Control");
-      res.setHeader("Cache-Control", "public, max-age=3600");
+      res.setHeader("Cache-Control", "public, max-age=86400");
       res.json(r.body);
     })
     .catch(() => res.status(500));
