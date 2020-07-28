@@ -4,14 +4,14 @@ import {
   usePagination,
   useFilters,
   useSortBy,
-  useGlobalFilter
+  useGlobalFilter,
 } from "react-table";
 import {
   Dataset,
   Distribution,
   DatasetColumn,
   DatasetTableOptions,
-  DatasetTableInstance
+  DatasetTableInstance,
 } from "./types";
 import { anyOf } from "./utils/filters";
 import useDataNorge from "./hooks/useDataNorge";
@@ -19,11 +19,12 @@ import SelectColumnFilter from "./components/SelectColumnFilter";
 import Pagination from "./components/Pagination";
 import Table from "./components/Table";
 import Search from "./components/Search";
+import Loading from "./components/Loading";
 import "./App.scss";
 
 const defaultColumn: DatasetColumn = {
   width: "10%",
-  disableFilters: true
+  disableFilters: true,
 };
 
 const columns: DatasetColumn[] = [
@@ -34,7 +35,7 @@ const columns: DatasetColumn[] = [
     disableFilters: false,
     Filter: SelectColumnFilter,
     filter: "includes",
-    width: "10%"
+    width: "10%",
   },
   {
     Header: "Datasett",
@@ -42,14 +43,14 @@ const columns: DatasetColumn[] = [
     width: "20%",
     Cell: ({ cell: { value, row } }) => (
       <a
-        href={row.original.id}
+        href={`https://data.norge.no/datasets/${row.original.id}`}
         target="_blank"
         rel="noreferrer noopener"
         title={value}
       >
         {value}
       </a>
-    )
+    ),
   },
   {
     Header: "Kategorier",
@@ -68,7 +69,7 @@ const columns: DatasetColumn[] = [
     disableFilters: false,
     Filter: SelectColumnFilter,
     filter: anyOf,
-    width: "1%"
+    width: "1%",
   },
   {
     Header: "Formater",
@@ -78,15 +79,21 @@ const columns: DatasetColumn[] = [
         {!value
           ? "-"
           : value.map((v: Distribution, i: number) => (
-              <a href={v.accessURL} className="format" key={i}>
-                {v.format || v.title}
+              <a
+                href={v.accessURL[0]}
+                className="format"
+                key={i}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {v.format ? v.format.join(", ") : v.description || "Data"}
               </a>
             ))}
       </div>
     ),
     width: "1%",
-    disableGlobalFilter: true
-  }
+    disableGlobalFilter: true,
+  },
 ];
 
 const sortBy = [{ id: "publisher" }, { id: "title" }];
@@ -97,16 +104,16 @@ const tableOptions: DatasetTableOptions = {
   defaultCanFilter: false,
   initialState: {
     pageSize: parseInt(localStorage.getItem("datanorge-pageSize") || "20"),
-    sortBy
+    sortBy,
   },
-  data: []
+  data: [],
 };
 
 function App() {
-  const data = useDataNorge();
+  const { datasets, loading } = useDataNorge();
 
   const table = useTable<Dataset>(
-    { ...tableOptions, data },
+    { ...tableOptions, data: datasets },
     useGlobalFilter,
     useFilters,
     useSortBy,
@@ -117,6 +124,7 @@ function App() {
     <div className="App">
       <header>
         <h1>Register over åpne datasett i Norge</h1>
+        {loading && <Loading />}
         <Search table={table} />
       </header>
       <Table table={table} />

@@ -1,0 +1,61 @@
+.loading {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin: 20px;
+  transform: translate(-50%, 0);
+  padding: 10px 20px;
+  pointer-events: none;
+
+  background: #005577;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+
+  .loading-dots {
+    vertical-align: baseline;
+    width: 4px;
+    height: 16px;
+    display: inline-block;
+    margin-left: 20px;
+
+    span {
+      vertical-align: middle;
+      display: inline-block;
+      width: 2px;
+      height: 20px;
+      background: currentColor;
+      opacity: 0.4;
+      border-radius: 5px;
+
+      animation: bounce 0.8s linear infinite;
+      margin: 0 -2px 0 0;
+
+      &:nth-child(2) {
+        animation-delay: 100ms;
+        animation-duration: 0.5s;
+        height: 18px;
+      }
+      &:nth-child(3) {
+        animation-delay: 200ms;
+        animation-duration: 0.7s;
+        height: 12px;
+      }
+      &:nth-child(4) {
+        animation-delay: 300ms;
+        animation-duration: 0.9s;
+        height: 24px;
+      }
+    }
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(180deg);
+  }
+}

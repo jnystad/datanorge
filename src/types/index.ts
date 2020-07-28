@@ -16,18 +16,19 @@ import {
   UseGlobalFiltersInstanceProps,
   UseGlobalFiltersOptions,
   UseGlobalFiltersState,
-  UseGlobalFiltersColumnOptions
+  UseGlobalFiltersColumnOptions,
 } from "react-table";
 
 export interface Publisher {
   name: string;
-  mbox: string;
+  uri: string;
 }
 
 export interface Distribution {
-  title: string;
-  format: string;
-  accessURL: string;
+  description: string;
+  format: string[];
+  accessURL: string[];
+  downloadURL: string[];
 }
 
 export interface Dataset {
@@ -35,9 +36,7 @@ export interface Dataset {
   title: string;
   antall: string;
   description: any;
-  landingPage: string;
-  issued: string;
-  modified: string;
+  uri: string;
   publisher: Publisher;
   keyword: string[];
   distribution: Distribution[];
