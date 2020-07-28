@@ -25,7 +25,9 @@ const SelectColumnFilter: SFC<{
 
   const keys = useMemo(() => {
     const keys = Object.keys(options);
-    keys.sort();
+    keys.sort((a, b) =>
+      options[b] === options[a] ? a.localeCompare(b) : options[b] - options[a]
+    );
     return keys;
   }, [options]);
 

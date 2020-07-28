@@ -4,7 +4,7 @@ import { Dataset, Publisher, Distribution } from "../types";
 
 let baseUrl = "/datasets";
 if (process.env.NODE_ENV === "production") {
-  baseUrl = "/api/data";
+  baseUrl = "/api/datasets";
 }
 
 function toLang(l: any): string {
@@ -13,7 +13,7 @@ function toLang(l: any): string {
 
 function toPublisher(p: any): Publisher {
   return {
-    name: toLang(p.name),
+    name: toLang(p.name).toLocaleUpperCase(),
     uri: p.uri,
   };
 }
@@ -41,7 +41,7 @@ function toDataset(hit: any): Dataset | null {
   };
 }
 
-export default function useDataNorge() {
+export default function useDatasets() {
   const [data, setData] = useState<Dataset[]>([]);
   const [loading, setLoading] = useState(true);
 

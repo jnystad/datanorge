@@ -18,8 +18,10 @@ const Pagination: SFC<PaginationProps> = ({ table }) => {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize }
+    state: { pageIndex, pageSize },
   } = table;
+
+  useEffect(() => window.scrollTo(0, 0), [pageIndex]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -44,54 +46,55 @@ const Pagination: SFC<PaginationProps> = ({ table }) => {
 
   return (
     <div className="pagination">
-      <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-        <svg viewBox="0 0 14 14">
-          <path
-            d="M13,3l-6,5l6,5M7,3l-6,5l6,5"
-            fill="none"
-            strokeWidth={2}
-            stroke="currentColor"
-          />
-        </svg>
-      </button>
-      <button onClick={previousPage} disabled={!canPreviousPage}>
-        <svg viewBox="0 0 14 14">
-          <path
-            d="M9,3l-6,5l6,5"
-            fill="none"
-            strokeWidth={2}
-            stroke="currentColor"
-          />
-        </svg>
-      </button>
-      <span>
-        Side {pageIndex + 1} av {pageCount}
-      </span>
-      <button onClick={nextPage} disabled={!canNextPage}>
-        <svg viewBox="0 0 14 14">
-          <path
-            d="M5,3l6,5l-6,5"
-            fill="none"
-            strokeWidth={2}
-            stroke="currentColor"
-          />
-        </svg>
-      </button>
-      <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-        <svg viewBox="0 0 14 14">
-          <path
-            d="M1,3l6,5l-6,5M7,3l6,5l-6,5"
-            fill="none"
-            strokeWidth={2}
-            stroke="currentColor"
-          />
-        </svg>
-      </button>
-      <br />
+      <div className="pagination--buttons">
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          <svg viewBox="0 0 14 14">
+            <path
+              d="M13,3l-6,5l6,5M7,3l-6,5l6,5"
+              fill="none"
+              strokeWidth={2}
+              stroke="currentColor"
+            />
+          </svg>
+        </button>
+        <button onClick={previousPage} disabled={!canPreviousPage}>
+          <svg viewBox="0 0 14 14">
+            <path
+              d="M9,3l-6,5l6,5"
+              fill="none"
+              strokeWidth={2}
+              stroke="currentColor"
+            />
+          </svg>
+        </button>
+        <span>
+          Side {pageIndex + 1} av {pageCount}
+        </span>
+        <button onClick={nextPage} disabled={!canNextPage}>
+          <svg viewBox="0 0 14 14">
+            <path
+              d="M5,3l6,5l-6,5"
+              fill="none"
+              strokeWidth={2}
+              stroke="currentColor"
+            />
+          </svg>
+        </button>
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          <svg viewBox="0 0 14 14">
+            <path
+              d="M1,3l6,5l-6,5M7,3l6,5l-6,5"
+              fill="none"
+              strokeWidth={2}
+              stroke="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
       <select
-        style={{ width: "250px" }}
+        style={{ width: "140px" }}
         value={pageSize}
-        onChange={e => setPageSize(parseInt(e.target.value))}
+        onChange={(e) => setPageSize(parseInt(e.target.value))}
       >
         <option value="20">20 per side</option>
         <option value="50">50 per side</option>

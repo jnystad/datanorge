@@ -1,6 +1,9 @@
 .pagination {
   padding: 10px 0;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 
   span {
     display: inline-block;
@@ -32,5 +35,11 @@
       width: 16px;
       height: 16px;
     }
+  }
+
+  .pagination-buttons,
+  select {
+    margin: 5px;
+    flex: 0 0 auto;
   }
 }

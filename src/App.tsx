@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   useTable,
   usePagination,
@@ -14,13 +14,14 @@ import {
   DatasetTableInstance,
 } from "./types";
 import { anyOf } from "./utils/filters";
-import useDataNorge from "./hooks/useDataNorge";
+import useDatasets from "./hooks/useDatasets";
 import SelectColumnFilter from "./components/SelectColumnFilter";
 import Pagination from "./components/Pagination";
 import Table from "./components/Table";
 import Search from "./components/Search";
 import Loading from "./components/Loading";
 import "./App.scss";
+import useApis from "./hooks/useApis";
 
 const defaultColumn: DatasetColumn = {
   width: "10%",
@@ -74,19 +75,27 @@ const columns: DatasetColumn[] = [
   {
     Header: "Formater",
     accessor: "distribution",
-    Cell: ({ cell: { value } }) => (
+    Cell: ({ cell: { value, row } }) => (
       <div className="formats">
         {!value
           ? "-"
           : value.map((v: Distribution, i: number) => (
               <a
-                href={v.accessURL[0]}
+                href={
+                  v.accessURL && v.accessURL.length
+                    ? v.accessURL[0]
+                    : `https://data.norge.no/datasets/${row.original.id}`
+                }
                 className="format"
                 key={i}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {v.format ? v.format.join(", ") : v.description || "Data"}
+                {v.format
+                  ? Array.isArray(v.format)
+                    ? v.format.join(", ")
+                    : v.format
+                  : v.description || "Data"}
               </a>
             ))}
       </div>
@@ -110,10 +119,15 @@ const tableOptions: DatasetTableOptions = {
 };
 
 function App() {
-  const { datasets, loading } = useDataNorge();
+  const { datasets, loading: datasetsLoading } = useDatasets();
+  const { apis, loading: apisLoading } = useApis();
+
+  const loading = apisLoading || datasetsLoading;
+
+  const data = useMemo(() => [...datasets, ...apis], [datasets, apis]);
 
   const table = useTable<Dataset>(
-    { ...tableOptions, data: datasets },
+    { ...tableOptions, data },
     useGlobalFilter,
     useFilters,
     useSortBy,
@@ -127,6 +141,7 @@ function App() {
         {loading && <Loading />}
         <Search table={table} />
       </header>
+      <Pagination table={table} />
       <Table table={table} />
       <Pagination table={table} />
       <footer>
