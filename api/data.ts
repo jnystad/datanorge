@@ -3,7 +3,13 @@ import request from "superagent";
 
 module.exports = (req: NowRequest, res: NowResponse) => {
   request
-    .get("https://fellesdatakatalog.digdir.no/datasets")
+    .get(
+      "https://fellesdatakatalog.digdir.no/datasets" +
+        "?page=" +
+        req.query.page +
+        "&size=" +
+        req.query.size
+    )
     .set("Accept", "application/json")
     .then((r) => {
       res.removeHeader("Cache-Control");
