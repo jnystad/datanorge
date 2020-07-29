@@ -44,7 +44,7 @@ const columns: DatasetColumn[] = [
     width: "20%",
     Cell: ({ cell: { value, row } }) => (
       <a
-        href={`https://data.norge.no/datasets/${row.original.id}`}
+        href={row.original.entryUri}
         target="_blank"
         rel="noreferrer noopener"
         title={value}
@@ -84,7 +84,7 @@ const columns: DatasetColumn[] = [
                 href={
                   v.accessURL && v.accessURL.length
                     ? v.accessURL[0]
-                    : `https://data.norge.no/datasets/${row.original.id}`
+                    : row.original.entryUri
                 }
                 className="format"
                 key={i}

@@ -31,6 +31,7 @@ function toDataset(hit: any): Dataset | null {
   if (!hit.publisher) return null;
   return {
     id: hit.id,
+    entryUri: `https://data.norge.no/datasets/${hit.id}`,
     uri: hit.uri,
     title: toLang(hit.title),
     description: toLang(hit.description),

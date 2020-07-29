@@ -33,6 +33,7 @@ export interface Distribution {
 
 export interface Dataset {
   id: string;
+  entryUri: string;
   title: string;
   antall: string;
   description: any;
