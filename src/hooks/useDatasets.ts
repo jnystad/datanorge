@@ -2,10 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import request from "superagent";
 import { Dataset, Publisher, Distribution } from "../types";
 
-let baseUrl = "/datasets";
-if (process.env.NODE_ENV === "production") {
-  baseUrl = "/api/datasets";
-}
+const baseUrl = "/api/datasets";
 
 function toLang(l: any): string {
   return l ? l.nb || l.nn || l.en || l : "";
