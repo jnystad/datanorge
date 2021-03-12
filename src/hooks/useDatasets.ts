@@ -5,14 +5,24 @@ import { Dataset, Publisher, Distribution } from "../types";
 const baseUrl = "/api/datasets";
 
 function toLang(l: any): string {
-  return l ? l.nb || l.nn || l.en || l : "";
+  return l ? l.no || l.nb || l.nn || l.en || l : "";
 }
 
 function toPublisher(p: any): Publisher {
-  return {
+  const publisher = {
     name: toLang(p.name).toLocaleUpperCase(),
     uri: p.uri,
   };
+
+  if (!publisher.name) {
+    if (p.uri?.indexOf("geonorge") >= 0) {
+      publisher.name = "STATENS KARTVERK";
+    } else {
+      publisher.name = "UKJENT";
+    }
+  }
+
+  return publisher;
 }
 
 function toDistribution(d: any): Distribution {
@@ -34,7 +44,7 @@ function toDataset(hit: any): Dataset | null {
     description: toLang(hit.description),
     keyword: (hit.keyword && hit.keyword.map(toLang)) || [],
     antall: hit.distribution ? hit.distribution.length : 0,
-    publisher: toPublisher(hit.publisher),
+    publisher: toPublisher(hit.publisher) || "Ingen",
     distribution: hit.distribution && hit.distribution.map(toDistribution),
   };
 }

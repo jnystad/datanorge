@@ -61,7 +61,10 @@ export default function useApis() {
             setLoading(false);
           }
         })
-        .catch((err) => console.warn(err));
+        .catch((err) => {
+          setLoading(false);
+          console.warn(err);
+        });
     };
 
     getPage(0);
