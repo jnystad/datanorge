@@ -8,7 +8,7 @@
     "@types/react-dom": "^16.9.5",
     "@types/react-table": "^7.0.12",
     "@types/superagent": "^4.1.7",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
@@ -24,7 +24,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "https://data.norge.no",
+  "proxy": "https://data-norge.nystad.io",
   "browserslist": {
     "production": [
       ">0.2%",

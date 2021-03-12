@@ -53,8 +53,8 @@ export default function useDatasets() {
         .get(url)
         .set("Accept", "application/json")
         .then((res) => {
-          const datasets = res.body.hits.hits
-            .map((hit: any) => toDataset(hit._source))
+          const datasets = res.body.hits
+            .map((hit: any) => toDataset(hit))
             .filter((d: Dataset | null) => !!d);
           setData((data) => [...data, ...datasets]);
           if (datasets.length > 0) {
@@ -63,7 +63,7 @@ export default function useDatasets() {
             setLoading(false);
           }
         })
-        .catch((err) => console.warn(err));
+        .catch((err) => console.warn(err, baseUrl));
     };
 
     getPage(0);
