@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
-    "@now/node": "^1.4.1"
+    "@now/node": "^1.4.1",
+    "mini-css-extract-plugin": "2.4.5"
   }
 }
