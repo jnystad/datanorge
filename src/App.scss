@@ -20,33 +20,30 @@
   .format {
     display: inline-block;
     padding: 2px 4px;
-    border: 1px solid #aca;
-    background: #ade;
+    border: 1px solid darken(#005691, 10%);
+    background: #005691;
+    color: #fff;
     font-size: 12px;
     border-radius: 3px;
     margin: 0 2px;
   }
 
   .format {
-    background: #09a;
+    background: #005691;
     font-weight: bold;
     color: #fff;
-    border-color: #030;
+    border-color: darken(#005691, 10%);
   }
 
   header {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    border-bottom: 2px solid #005577;
     h1 {
       flex: 10 0 300px;
     }
 
     input {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
       flex: 1 1 200px;
       margin: 10px;
     }

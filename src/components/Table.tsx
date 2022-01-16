@@ -1,15 +1,10 @@
-import React, { SFC } from "react";
+import React, { FC } from "react";
 import { DatasetTableInstance } from "../types";
 import "./Table.scss";
 
-const Table: SFC<{ table: DatasetTableInstance }> = ({ table }) => {
-  const {
-    getTableBodyProps,
-    getTableProps,
-    page,
-    headerGroups,
-    prepareRow
-  } = table;
+const Table: FC<{ table: DatasetTableInstance }> = ({ table }) => {
+  const { getTableBodyProps, getTableProps, page, headerGroups, prepareRow } =
+    table;
 
   let prevPublisher: string;
 
@@ -33,7 +28,7 @@ const Table: SFC<{ table: DatasetTableInstance }> = ({ table }) => {
         ))}
       </div>
       <div className="tbody" {...getTableBodyProps()}>
-        {page.map(row => {
+        {page.map((row) => {
           prepareRow(row);
 
           const isNewPublisher = row.values.publisher !== prevPublisher;
@@ -42,7 +37,7 @@ const Table: SFC<{ table: DatasetTableInstance }> = ({ table }) => {
           return (
             <div className="row" {...row.getRowProps()}>
               {row.cells.map(
-                cell =>
+                (cell) =>
                   (cell.column.id !== "publisher" || isNewPublisher) && (
                     <span
                       className={"cell cell-" + cell.column.id}

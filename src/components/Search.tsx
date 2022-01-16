@@ -1,13 +1,15 @@
-import React, { SFC, useRef, useEffect } from "react";
+import React, { useRef, useEffect, FC, useState } from "react";
 import { DatasetTableInstance } from "../types";
 
-const Search: SFC<{ table: DatasetTableInstance }> = ({ table }) => {
+const Search: FC<{ table: DatasetTableInstance }> = ({ table }) => {
   const {
     state: { globalFilter },
-    setGlobalFilter
+    setGlobalFilter,
   } = table;
 
   const ref = useRef<HTMLInputElement>(null);
+
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -21,14 +23,23 @@ const Search: SFC<{ table: DatasetTableInstance }> = ({ table }) => {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [ref]);
 
+  useEffect(() => {
+    if (!query) {
+      setGlobalFilter("");
+      return;
+    }
+    const tId = setTimeout(() => setGlobalFilter(query), 500);
+    return () => clearTimeout(tId);
+  }, [setGlobalFilter, query]);
+
   return (
     <input
       ref={ref}
       type="text"
       name="search"
       placeholder="Søk (ctrl+s)"
-      value={globalFilter}
-      onChange={e => setGlobalFilter(e.target.value)}
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
     />
   );
 };

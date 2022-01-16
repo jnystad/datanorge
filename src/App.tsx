@@ -24,6 +24,7 @@ import "./App.scss";
 import useApis from "./hooks/useApis";
 
 const defaultColumn: DatasetColumn = {
+  accessor: "id",
   width: "10%",
   disableFilters: true,
 };
@@ -32,7 +33,7 @@ const columns: DatasetColumn[] = [
   {
     Header: "Forvalter",
     id: "publisher",
-    accessor: "publisher.name",
+    accessor: (row) => row.publisher.name,
     disableFilters: false,
     Filter: SelectColumnFilter,
     filter: "includes",

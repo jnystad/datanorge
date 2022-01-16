@@ -3,7 +3,7 @@ import request from "superagent";
 
 module.exports = (req: NowRequest, res: NowResponse) => {
   request
-    .post("https://search.fellesdatakatalog.digdir.no/api/apis")
+    .post("https://search.fellesdatakatalog.digdir.no/dataservices")
     .send({ page: req.query.page, size: req.query.size })
     .set("Accept", "application/json")
     .then((r) => {

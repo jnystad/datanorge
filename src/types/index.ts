@@ -26,7 +26,7 @@ export interface Publisher {
 
 export interface Distribution {
   description: string;
-  format: string[];
+  format: string | string[];
   accessURL?: string[];
   downloadURL?: string[];
 }

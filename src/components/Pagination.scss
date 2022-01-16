@@ -11,23 +11,22 @@
   }
 
   button {
-    background: #ddeaf0;
+    background: #005691;
     width: 33px;
     height: 33px;
-    border-radius: 10px;
-    border: 1px solid #abc;
+    border: none;
     margin: 0 2px;
     font-weight: bold;
     cursor: pointer;
-    color: #068;
+    color: #fff;
 
     &:hover {
-      background: #ddd;
+      background: #004a7c;
     }
 
     &:disabled {
       opacity: 0.6;
-      background: #eee;
+      background: #e8f1f5;
       cursor: default;
     }
 

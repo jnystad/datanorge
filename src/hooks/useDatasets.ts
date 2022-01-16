@@ -30,7 +30,11 @@ function toDistribution(d: any): Distribution {
     description: toLang(d.description),
     downloadURL: d.downloadURL,
     accessURL: d.accessURL,
-    format: d.format,
+    format: d.format
+      ? Array.isArray(d.format)
+        ? d.format.map(mapFormat)
+        : mapFormat(d.format)
+      : null,
   };
 }
 
@@ -70,7 +74,10 @@ export default function useDatasets() {
             setLoading(false);
           }
         })
-        .catch((err) => console.warn(err, baseUrl));
+        .catch((err) => {
+          setLoading(false);
+          console.warn(err);
+        });
     };
 
     getPage(0);
@@ -87,4 +94,104 @@ export default function useDatasets() {
   }, [data]);
 
   return { datasets: normalized, loading };
+}
+
+function mapFormat(format: string) {
+  format = format
+    .replace("https://www.iana.org/assignments/media-types/", "")
+    .replace("https://publications.europa.eu/resource/authority/file-type/", "")
+    .replace("-format", "")
+    .trim();
+
+  switch (format) {
+    case "application/g-tar":
+    case "application/x-gtar":
+      return "GzTAR";
+    case "image/tiff":
+    case "TIFF":
+      return "TIFF";
+    case "GDB":
+      return "GDB";
+    case "application/vnd.google-earth.kmz+xml":
+      return "KMZ";
+    case "application/x-­ogc-sosi":
+    case "application/x-ogc-sosi":
+    case "text/vnd.sosi":
+      return "SOSI";
+    case "ESRI Shape":
+    case "Shape":
+    case "Shapefile":
+    case "application/vnd.shp":
+      return "Shape";
+    case "KML":
+    case "application/vnd.google-earth.kml+xml":
+      return "KML";
+    case "GeoJSON":
+    case "GEOJSON":
+    case "application/geo+json":
+    case "application/vnd.geo+json":
+      return "GeoJSON";
+    case "GPX":
+    case "application/gpx+xml":
+      return "GPX";
+    case "GML":
+    case "application/gml+xml":
+      return "GML";
+    case "application/rss+xml":
+      return "RSS";
+    case "application/sql":
+      return "SQL";
+    case "Zip":
+    case "ZIP":
+    case "application/zip":
+      return "Zip";
+    case "application/vnd.rar":
+      return "RAR";
+    case "application/ld+json":
+      return "LDJSON";
+    case "text/turtle":
+      return "Turtle";
+    case "RDF":
+    case "application/rdf+xml":
+      return "RDF";
+    case "WMS":
+    case "OGC WMS":
+    case "application/x.wms":
+      return "WMS";
+    case "WFS":
+    case "OGC WFS":
+    case "application/x.wfs":
+      return "WFS";
+    case "application/x.yaml":
+      return "YAML";
+    case "application/javascript":
+      return "JS";
+    case "PDF":
+    case "application/pdf":
+      return "PDF";
+    case "application/vnd.oasis.opendocument.spreadsheet":
+      return "ODS";
+    case "XLS":
+    case "application/vnd.sealed-xls":
+      return "XLS";
+    case "XLSX":
+    case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+      return "XLSX";
+    case "text/html":
+      return "HTML";
+    case "text/plain":
+      return "Text";
+    case "XML":
+    case "application/xml":
+    case "text/xml":
+      return "XML";
+    case "CSV":
+    case "text/csv":
+      return "CSV";
+    case "JSON":
+    case "application/json":
+      return "JSON";
+    default:
+      return format;
+  }
 }
