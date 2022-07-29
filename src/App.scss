@@ -20,8 +20,8 @@
   .format {
     display: inline-block;
     padding: 2px 4px;
-    border: 1px solid darken(#005691, 10%);
-    background: #005691;
+    border: 1px solid var(--theme-dark);
+    background: var(--theme);
     color: #fff;
     font-size: 12px;
     border-radius: 3px;
@@ -29,10 +29,7 @@
   }
 
   .format {
-    background: #005691;
     font-weight: bold;
-    color: #fff;
-    border-color: darken(#005691, 10%);
   }
 
   header {

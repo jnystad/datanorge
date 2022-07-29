@@ -1,14 +1,15 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import {
   useTable,
   usePagination,
   useFilters,
   useSortBy,
   useGlobalFilter,
+  Renderer,
+  FilterProps,
 } from "react-table";
 import {
   Dataset,
-  Distribution,
   DatasetColumn,
   DatasetTableOptions,
   DatasetTableInstance,
@@ -22,6 +23,7 @@ import Search from "./components/Search";
 import Loading from "./components/Loading";
 import "./App.scss";
 import useApis from "./hooks/useApis";
+import Formats from "./components/Formats";
 
 const defaultColumn: DatasetColumn = {
   accessor: "id",
@@ -35,7 +37,7 @@ const columns: DatasetColumn[] = [
     id: "publisher",
     accessor: (row) => row.publisher.name,
     disableFilters: false,
-    Filter: SelectColumnFilter,
+    Filter: SelectColumnFilter as unknown as Renderer<FilterProps<Dataset>>,
     filter: "includes",
     width: "10%",
   },
@@ -69,7 +71,7 @@ const columns: DatasetColumn[] = [
       </div>
     ),
     disableFilters: false,
-    Filter: SelectColumnFilter,
+    Filter: SelectColumnFilter as unknown as Renderer<FilterProps<Dataset>>,
     filter: anyOf,
     width: "1%",
   },
@@ -78,27 +80,7 @@ const columns: DatasetColumn[] = [
     accessor: "distribution",
     Cell: ({ cell: { value, row } }) => (
       <div className="formats">
-        {!value
-          ? "-"
-          : value.map((v: Distribution, i: number) => (
-              <a
-                href={
-                  v.accessURL && v.accessURL.length
-                    ? v.accessURL[0]
-                    : row.original.entryUri
-                }
-                className="format"
-                key={i}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                {v.format
-                  ? Array.isArray(v.format)
-                    ? v.format.join(", ")
-                    : v.format
-                  : v.description || "Data"}
-              </a>
-            ))}
+        {!value ? "-" : <Formats formats={value} entry={row.original} />}
       </div>
     ),
     width: "1%",
@@ -117,6 +99,8 @@ const tableOptions: DatasetTableOptions = {
     sortBy,
   },
   data: [],
+  autoResetGlobalFilter: false,
+  autoResetFilters: false,
 };
 
 function App() {

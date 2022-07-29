@@ -8,7 +8,11 @@ if (process.env.NODE_ENV === "production") {
 }
 
 function toLang(l: any): string {
-  return l ? l.nb || l.nn || l.en || l : "";
+  return typeof l === "string"
+    ? l
+    : l
+    ? l.nb || l.no || l.nn || l.en || ""
+    : "";
 }
 
 function toPublisher(p: any): Publisher {
@@ -18,25 +22,30 @@ function toPublisher(p: any): Publisher {
   };
 }
 
-function toDistribution(d: any): Distribution {
-  return {
-    description: d,
-    format: d,
-  };
+function toDistribution(urls: string[], desc: string[]): Distribution[] {
+  return urls?.map((url, i) => ({
+    description: "Beskrivelse",
+    accessURL: [desc ? desc[i] : ""],
+    downloadURL: [url],
+    format: "API",
+  }));
 }
 
 function toDataset(hit: any): Dataset | null {
-  if (!hit.publisher) return null;
+  if (!hit.publisher) {
+    return null;
+  }
   return {
+    raw: hit,
     id: hit.id,
     entryUri: `https://data.norge.no/apis/${hit.id}`,
     uri: hit.uri,
     title: toLang(hit.title),
     description: toLang(hit.description),
     keyword: ["API"],
-    antall: hit.distribution ? hit.distribution.length : 0,
+    antall: hit.endpointURL ? hit.endpointURL.length : 0,
     publisher: toPublisher(hit.publisher),
-    distribution: hit.formats && hit.formats.map(toDistribution),
+    distribution: toDistribution(hit.endpointURL, hit.endpointDescription),
   };
 }
 

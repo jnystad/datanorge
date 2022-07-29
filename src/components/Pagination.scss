@@ -11,7 +11,7 @@
   }
 
   button {
-    background: #005691;
+    background: var(--theme);
     width: 33px;
     height: 33px;
     border: none;
@@ -21,12 +21,12 @@
     color: #fff;
 
     &:hover {
-      background: #004a7c;
+      background: var(--theme-hover);
     }
 
     &:disabled {
-      opacity: 0.6;
-      background: #e8f1f5;
+      opacity: 0.5;
+      filter: saturate(10%);
       cursor: default;
     }
 

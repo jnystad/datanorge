@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, FC, useState } from "react";
+import { useRef, useEffect, FC, useState } from "react";
 import { DatasetTableInstance } from "../types";
 
 const Search: FC<{ table: DatasetTableInstance }> = ({ table }) => {

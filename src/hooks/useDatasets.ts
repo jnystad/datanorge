@@ -5,7 +5,11 @@ import { Dataset, Publisher, Distribution } from "../types";
 const baseUrl = "/api/datasets";
 
 function toLang(l: any): string {
-  return l ? l.no || l.nb || l.nn || l.en || l : "";
+  return typeof l === "string"
+    ? l
+    : l
+    ? l.nb || l.no || l.nn || l.en || ""
+    : "";
 }
 
 function toPublisher(p: any): Publisher {
@@ -41,6 +45,7 @@ function toDistribution(d: any): Distribution {
 function toDataset(hit: any): Dataset | null {
   if (!hit.publisher) return null;
   return {
+    raw: hit,
     id: hit.id,
     entryUri: `https://data.norge.no/datasets/${hit.id}`,
     uri: hit.uri,

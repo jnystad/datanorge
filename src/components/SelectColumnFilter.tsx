@@ -1,4 +1,4 @@
-import React, { SFC, useMemo } from "react";
+import { FunctionComponent, useMemo } from "react";
 import { Row, UseFiltersColumnProps, UseTableColumnProps } from "react-table";
 import { Dataset } from "../types";
 
@@ -10,7 +10,7 @@ function addOption(options: any, option: string) {
   }
 }
 
-const SelectColumnFilter: SFC<{
+const SelectColumnFilter: FunctionComponent<{
   column: UseFiltersColumnProps<Dataset> & UseTableColumnProps<Dataset>;
 }> = ({ column: { filterValue, setFilter, preFilteredRows, id } }) => {
   const options = useMemo(() => {

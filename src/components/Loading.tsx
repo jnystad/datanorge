@@ -1,7 +1,6 @@
-import React, { FC } from "react";
 import "./Loading.scss";
 
-const Loading: FC = () => (
+const Loading = () => (
   <div className="loading">
     Laster
     <div className="loading-dots">

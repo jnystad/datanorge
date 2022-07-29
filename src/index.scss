@@ -1,3 +1,34 @@
+:root {
+  --background: #fff;
+  --text: #333;
+  --header: #21232f;
+  --theme: #005691;
+  --theme-hover: #004a7c;
+  --theme-dark: #004a7c;
+  --focus: #005691;
+  --link: var(--theme);
+  --link-visited: #3c3e50;
+  --input-border: #999;
+  --input-bg: #fdfdfd;
+  --input-bg-hover: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #222;
+    --text: #fff;
+    --header: #f0f0f0;
+    --theme: #003360;
+    --theme-hover: #002240;
+    --theme-dark: #002240;
+    --link: #74b3fe;
+    --link-visited: #888;
+    --input-border: #444;
+    --input-bg: #202020;
+    --input-bg-hover: #1a1a1a;
+  }
+}
+
 body {
   margin: 20px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,7 +36,37 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #333;
+}
+
+body,
+dialog {
+  background: var(--background);
+  color: var(--text);
+}
+
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 95vh;
+  overflow-y: auto;
+  z-index: 2;
+  border: 1px solid var(--theme-dark);
+  max-width: 800px;
+  width: 95vw;
+  padding: 20px;
+}
+
+.dialog-overlay {
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgba(96, 96, 96, 0.4);
 }
 
 code {
@@ -14,44 +75,78 @@ code {
 }
 
 :focus {
-  outline: 2px dotted #058;
+  outline: 2px dotted var(--focus);
 }
 
 a:link {
-  color: #005691;
+  color: var(--link);
 }
 
 a:visited {
-  color: #3c3e50;
+  color: var(--link-visited);
 }
 
 h1 {
   font-size: 28px;
   font-weight: 400;
   margin: 20px 0;
-  color: #21232f;
+  color: var(--header);
 }
 
 input,
 select {
-  border: 2px solid #005691;
-  border-style: none none solid;
+  border: 1px solid var(--input-border);
   border-radius: 0;
-  padding: 5px 10px;
+  padding: 10px 15px;
   font-size: 16px;
+  color: var(--text);
+  background: var(--input-bg);
+
+  &:hover,
+  &:focus {
+    background-color: var(--input-bg-hover);
+  }
 }
 
 select {
   position: relative;
   margin: 5px 0;
-  appearance: none;
-  background-color: transparent;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' width='20px' height='20px'%3E%3Cpath d='M2,6l10,0l-5,8' fill='005691' /%3E%3C/svg%3E");
-  background-position: right center;
-  background-repeat: no-repeat;
   cursor: pointer;
+}
+
+input,
+select,
+button {
+  transition: background-color 200ms ease-out;
+
+  border-radius: 4px;
+}
+
+button {
+  background: var(--theme);
+  border: none;
+  margin: 0 2px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+  padding: 3px 10px;
 
   &:hover {
-    background-color: #f7f7f7;
+    background: var(--theme-hover);
   }
+
+  &:disabled {
+    opacity: 0.5;
+    filter: saturate(10%);
+    cursor: default;
+  }
+}
+
+.x-row {
+  display: flex;
+  align-items: center;
+}
+
+.x-grow {
+  flex: 1 0 10px;
 }

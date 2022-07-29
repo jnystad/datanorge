@@ -1,4 +1,4 @@
-import React, { SFC, useEffect } from "react";
+import { useEffect } from "react";
 import { UsePaginationInstanceProps, UsePaginationState } from "react-table";
 import { Dataset } from "../types";
 import "./Pagination.scss";
@@ -9,7 +9,7 @@ interface PaginationProps {
   };
 }
 
-const Pagination: SFC<PaginationProps> = ({ table }) => {
+const Pagination = ({ table }: PaginationProps) => {
   const {
     canPreviousPage,
     canNextPage,
