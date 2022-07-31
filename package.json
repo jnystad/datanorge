@@ -30,13 +30,14 @@
     ]
   },
   "devDependencies": {
-    "@now/node": "^1.4.1",
     "@types/node": "^17.0.8",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/react-table": "^7.7.12",
     "@types/superagent": "^4.1.15",
+    "@vercel/node": "^2.5.2",
     "@vitejs/plugin-react": "^2.0.0",
+    "node-fetch": "^3.2.10",
     "sass": "^1.54.0",
     "typescript": "^4.7.4",
     "vite": "^3.0.4"

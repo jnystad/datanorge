@@ -1,19 +1,34 @@
-import { NowRequest, NowResponse } from "@now/node";
-import request from "superagent";
+import { VercelRequest, VercelResponse } from "@vercel/node";
+import fetch from "node-fetch";
 
 function toInt(q: string | string[]) {
   return Array.isArray(q) ? parseInt(q[0]) : parseInt(q);
 }
 
-module.exports = (req: NowRequest, res: NowResponse) => {
-  request
-    .post("https://search.fellesdatakatalog.digdir.no/dataservices")
-    .send({ page: toInt(req.query.page), size: toInt(req.query.size) })
-    .set("Accept", "application/json")
-    .then((r) => {
-      res.removeHeader("Cache-Control");
-      res.setHeader("Cache-Control", "public, max-age=86400");
-      res.json(r.body);
-    })
-    .catch(() => res.status(500));
-};
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  try {
+    const response = await fetch(
+      "https://search.fellesdatakatalog.digdir.no/dataservices",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          page: toInt(req.query.page),
+          size: toInt(req.query.size),
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    res.removeHeader("Cache-Control");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    return res.json(data);
+  } catch (ex) {
+    console.error(ex);
+    return res.status(500);
+  }
+}
