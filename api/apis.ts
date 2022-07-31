@@ -1,5 +1,4 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import fetch from "node-fetch";
 
 function toInt(q: string | string[]) {
   return Array.isArray(q) ? parseInt(q[0]) : parseInt(q);
