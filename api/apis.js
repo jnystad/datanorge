@@ -1,14 +1,12 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
-
-function toInt(q: string | string[]) {
+function toInt(q) {
   return Array.isArray(q) ? parseInt(q[0]) : parseInt(q);
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req, res) {
   try {
     const fetch = (await import("node-fetch")).default;
     const response = await fetch(
-      "https://search.fellesdatakatalog.digdir.no/datasets",
+      "https://search.fellesdatakatalog.digdir.no/dataservices",
       {
         method: "POST",
         body: JSON.stringify({
