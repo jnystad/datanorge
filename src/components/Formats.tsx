@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Dataset, Distribution } from "../types";
+import "./Formats.scss";
 
 const Formats = ({
   formats,
@@ -14,7 +15,7 @@ const Formats = ({
       {show && (
         <>
           <div className="dialog-overlay" onClick={() => setShow(false)} />
-          <dialog open>
+          <dialog className="formats" open>
             <div className="x-row">
               <h2>
                 <a href={entry.entryUri} target="_blank" rel="noopener">
@@ -26,56 +27,63 @@ const Formats = ({
                 Lukk
               </button>
             </div>
-            <p>{entry.description}</p>
-            {formats.map((v: Distribution, i: number) => {
-              return (
-                <ul key={i}>
-                  {v.format === "API" ? (
-                    <li>
-                      {!!v.accessURL?.length && (
-                        <a
-                          href={v.accessURL ? v.accessURL[0] : "#"}
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          Spesifikasjon
-                        </a>
-                      )}{" "}
-                      {!!v.downloadURL?.length && (
-                        <a
-                          href={v.downloadURL ? v.downloadURL[0] : "#"}
-                          target="_blank"
-                          rel="noopener"
-                        >
-                          Endepunkt
-                        </a>
-                      )}
-                    </li>
-                  ) : (
-                    <li>
-                      {v.description}{" "}
+            <p className="description">{entry.description}</p>
+            {!entry.keyword || !entry.keyword.length ? null : (
+              <p>
+                {entry.keyword.map((v: string, i: number) => (
+                  <span className="tag" key={i}>
+                    {v}
+                  </span>
+                ))}
+              </p>
+            )}
+            <ul>
+              {formats.map((v: Distribution, i: number) =>
+                v.format === "API" ? (
+                  <li key={i}>
+                    {!!v.downloadURL?.length &&
+                      (v.downloadURL ? (
+                        <>
+                          {"Endepunkt: " + v.downloadURL[0]}
+                          <br />
+                        </>
+                      ) : (
+                        ""
+                      ))}{" "}
+                    {!!v.accessURL?.length && (
                       <a
-                        href={
-                          v.accessURL && v.accessURL.length
-                            ? v.accessURL[0]
-                            : entry.entryUri
-                        }
-                        className="format"
-                        key={i}
+                        href={v.accessURL ? v.accessURL[0] : "#"}
                         target="_blank"
-                        rel="noreferrer noopener"
+                        rel="noopener"
                       >
-                        {v.format
-                          ? Array.isArray(v.format)
-                            ? v.format.join(", ")
-                            : v.format
-                          : v.description || "Data"}
+                        Spesifikasjon
                       </a>
-                    </li>
-                  )}
-                </ul>
-              );
-            })}
+                    )}
+                  </li>
+                ) : (
+                  <li key={i}>
+                    {v.description}{" "}
+                    <a
+                      href={
+                        v.accessURL && v.accessURL.length
+                          ? v.accessURL[0]
+                          : entry.entryUri
+                      }
+                      className="format"
+                      key={i}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      {v.format
+                        ? Array.isArray(v.format)
+                          ? v.format.join(", ")
+                          : v.format
+                        : v.description || "Data"}
+                    </a>
+                  </li>
+                )
+              )}
+            </ul>
           </dialog>
         </>
       )}
@@ -86,7 +94,8 @@ const Formats = ({
           setShow(true);
         }}
       >
-        Vis {formats.length} {formats.length > 1 ? "lenker" : "lenke"}
+        Vis detaljer og {formats.length}{" "}
+        {formats.length > 1 ? "lenker" : "lenke"}
       </button>
     </>
   );

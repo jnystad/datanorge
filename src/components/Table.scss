@@ -41,7 +41,10 @@
 
   .header-publisher,
   .cell-title {
-    flex: 8 1 500px;
+    flex: 12 1 200px;
+  }
+
+  .cell-title {
     padding-left: 20px;
   }
 
@@ -49,18 +52,29 @@
     display: none;
   }
 
+  .header-description {
+    width: 0;
+    flex-grow: unset;
+    padding: 0;
+  }
+
+  .cell-description {
+    width: 24px;
+    flex-grow: unset;
+    text-align: center;
+    svg {
+      margin: 2px 0 0;
+    }
+  }
+
   .header-keyword,
   .cell-keyword {
-    flex: 3 1 200px;
+    flex: 5 1 200px;
   }
 
   .header-distribution,
   .cell-distribution {
-    flex: 2 1 200px;
-    @media (max-width: 600px) {
-      flex-basis: 50px;
-    }
-
+    flex: 1 1 120px;
     white-space: normal;
   }
 
