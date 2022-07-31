@@ -144,9 +144,15 @@ function App() {
     <div className="App">
       <header>
         <h1>Register over åpne datasett i Norge</h1>
-        {loading && <Loading />}
         <Search table={table} />
       </header>
+      <p style={{ maxWidth: "1200px" }}>
+        Dette er en forenklet og kompakt oversikt over datasett og APIer
+        publisert av offentlige organer og andre norske organisasjoner.
+        Informasjonen er hentet fra data.norge.no, og dette er en alternativ
+        måte å søke etter publiserte data. Bruk søket i hjørnet for å søke på
+        forvalter, tittel, beskrivelse og nøkkelord, eller filtrer nedenfor.
+      </p>
       <Pagination table={table} />
       <Table table={table} />
       <Pagination table={table} />
@@ -160,6 +166,7 @@ function App() {
           <a href="https://github.com/jnystad/datanorge">GitHub</a>
         </p>
       </footer>
+      {loading && <Loading />}
     </div>
   );
 }
