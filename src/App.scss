@@ -1,4 +1,6 @@
 .App {
+  padding: 20px;
+
   .filter {
     max-width: 100%;
 
@@ -16,37 +18,33 @@
     }
   }
 
-  .tag,
-  .format {
+  .tag {
     display: inline-block;
     padding: 2px 4px;
-    border: 1px solid var(--tag-border);
-    background: var(--tag);
-    color: #fff;
+    background: var(--primary);
+    color: var(--primary-inverse);
     font-size: 12px;
-    border-radius: 3px;
+    border-radius: var(--border-radius);
     margin: 0 2px;
   }
 
-  .format {
-    font-weight: bold;
-  }
-
-  header {
+  & > header {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    padding: 0 0 1rem;
     h1 {
       flex: 10 0 300px;
+      margin: 0;
     }
 
     input {
       flex: 1 1 200px;
-      margin: 10px;
+      margin: 0;
     }
   }
 
-  footer {
+  & > footer {
     padding: 20px;
     text-align: center;
     opacity: 0.7;

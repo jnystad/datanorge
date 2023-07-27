@@ -1,4 +1,4 @@
-import { FunctionComponent, useMemo } from "react";
+import { useMemo } from "react";
 import { Row, UseFiltersColumnProps, UseTableColumnProps } from "react-table";
 import { Dataset } from "../types";
 
@@ -10,9 +10,11 @@ function addOption(options: any, option: string) {
   }
 }
 
-const SelectColumnFilter: FunctionComponent<{
+function SelectColumnFilter({
+  column: { filterValue, setFilter, preFilteredRows, id },
+}: {
   column: UseFiltersColumnProps<Dataset> & UseTableColumnProps<Dataset>;
-}> = ({ column: { filterValue, setFilter, preFilteredRows, id } }) => {
+}) {
   const options = useMemo(() => {
     const options: { [key: string]: number } = {};
     preFilteredRows.forEach((row: Row<Dataset>) => {
@@ -46,6 +48,6 @@ const SelectColumnFilter: FunctionComponent<{
       ))}
     </select>
   );
-};
+}
 
 export default SelectColumnFilter;

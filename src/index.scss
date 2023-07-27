@@ -1,40 +1,29 @@
+$enable-viewport: false;
+$enable-responsive-spacings: false;
+$enable-responsive-typography: false;
+$enable-grid: false;
+$primary-hue: 215;
+
+@import "@picocss/pico/scss/pico";
+
 :root {
-  --background: #fff;
-  --text: #333;
-  --header: #21232f;
-  --theme: #005691;
-  --theme-hover: #004a7c;
-  --theme-dark: #004a7c;
-  --tag: #0070a0;
-  --tag-border: #006094;
-  --focus: #005691;
-  --link: var(--theme);
-  --link-visited: #3c3e50;
-  --input-border: #999;
-  --input-bg: #fdfdfd;
-  --input-bg-hover: #fff;
+  --spacing: 1rem;
+  --block-padding: 2rem;
+  --form-element-spacing-vertical: 0.5rem;
+  --link: hsl(215deg, 85%, 41%);
+  --link-hover: hsl(215deg, 90%, 28%);
+  --link-focus: hsla(215deg, 90%, 28%, 0.05);
 }
 
-@media (prefers-color-scheme: dark) {
+@media only screen and (prefers-color-scheme: dark) {
   :root {
-    --background: #222;
-    --text: #fff;
-    --header: #f0f0f0;
-    --theme: #003360;
-    --theme-hover: #002240;
-    --theme-dark: #002240;
-    --tag: #004070;
-    --tag-border: #002240;
-    --link: #74b3fe;
-    --link-visited: #888;
-    --input-border: #444;
-    --input-bg: #202020;
-    --input-bg-hover: #1a1a1a;
+    --link: hsl(215deg, 85%, 58%);
+    --link-hover: hsl(215deg, 85%, 65%);
+    --link-focus: hsla(215deg, 85%, 65%, 0.1);
   }
 }
 
 body {
-  margin: 20px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -42,24 +31,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body,
-dialog {
-  background: var(--background);
-  color: var(--text);
-}
-
-dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-height: 95vh;
-  overflow-y: auto;
-  z-index: 2;
-  border: 1px solid var(--theme-dark);
-  max-width: 800px;
-  width: 95vw;
-  padding: 20px;
+button {
+  padding: 2px 4px;
+  font-weight: 600;
 }
 
 .dialog-overlay {
@@ -70,7 +44,6 @@ dialog {
   left: 0;
   bottom: 0;
   z-index: 1;
-  background: rgba(96, 96, 96, 0.4);
 }
 
 code {
@@ -78,79 +51,22 @@ code {
     monospace;
 }
 
-:focus {
-  outline: 2px dotted var(--focus);
+a,
+[role="link"] {
+  --color: var(--link);
+  --background-color: transparent;
 }
-
-a:link {
-  color: var(--link);
+a:is([aria-current], :hover, :active, :focus),
+[role="link"]:is([aria-current], :hover, :active, :focus) {
+  --color: var(--link-hover);
 }
-
-a:visited {
-  color: var(--link-visited);
-}
-
-h1 {
-  font-size: 28px;
-  font-weight: 400;
-  margin: 20px 0;
-  color: var(--header);
-}
-
-input,
-select {
-  border: 1px solid var(--input-border);
-  border-radius: 0;
-  padding: 10px 15px;
-  font-size: 16px;
-  color: var(--text);
-  background: var(--input-bg);
-
-  &:hover,
-  &:focus {
-    background-color: var(--input-bg-hover);
-  }
+a:focus,
+[role="link"]:focus {
+  --background-color: var(--link-focus);
 }
 
 select {
   position: relative;
   margin: 5px 0;
   cursor: pointer;
-}
-
-input,
-select,
-button {
-  transition: background-color 200ms ease-out;
-
-  border-radius: 4px;
-}
-
-button {
-  background: var(--theme);
-  border: none;
-  margin: 0 2px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #fff;
-  padding: 3px 10px;
-
-  &:hover {
-    background: var(--theme-hover);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    filter: saturate(10%);
-    cursor: default;
-  }
-}
-
-.x-row {
-  display: flex;
-  align-items: center;
-}
-
-.x-grow {
-  flex: 1 0 10px;
 }

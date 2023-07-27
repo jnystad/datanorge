@@ -9,7 +9,7 @@ interface PaginationProps {
   };
 }
 
-const Pagination = ({ table }: PaginationProps) => {
+function Pagination({ table }: PaginationProps) {
   const {
     canPreviousPage,
     canNextPage,
@@ -103,6 +103,6 @@ const Pagination = ({ table }: PaginationProps) => {
       </select>
     </div>
   );
-};
+}
 
 export default Pagination;

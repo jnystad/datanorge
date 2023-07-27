@@ -1,7 +1,7 @@
-import { useRef, useEffect, FC, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { DatasetTableInstance } from "../types";
 
-const Search: FC<{ table: DatasetTableInstance }> = ({ table }) => {
+function Search({ table }: { table: DatasetTableInstance }) {
   const {
     state: { globalFilter },
     setGlobalFilter,
@@ -35,13 +35,13 @@ const Search: FC<{ table: DatasetTableInstance }> = ({ table }) => {
   return (
     <input
       ref={ref}
-      type="text"
+      type="search"
       name="search"
       placeholder="Søk (ctrl+s)"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
     />
   );
-};
+}
 
 export default Search;

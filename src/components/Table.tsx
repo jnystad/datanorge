@@ -1,8 +1,7 @@
-import { FC } from "react";
 import { DatasetTableInstance } from "../types";
 import "./Table.scss";
 
-const Table: FC<{ table: DatasetTableInstance }> = ({ table }) => {
+function Table({ table }: { table: DatasetTableInstance }) {
   const { getTableBodyProps, getTableProps, page, headerGroups, prepareRow } =
     table;
 
@@ -53,6 +52,6 @@ const Table: FC<{ table: DatasetTableInstance }> = ({ table }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Table;

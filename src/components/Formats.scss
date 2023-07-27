@@ -1,6 +1,11 @@
 .formats {
-  h2 {
-    margin: 10px 0;
+  article {
+    width: 70vw;
+    max-width: 1200px;
+
+    header {
+      font-weight: bold;
+    }
   }
 
   .description {

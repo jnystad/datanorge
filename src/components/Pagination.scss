@@ -11,24 +11,16 @@
   }
 
   button {
-    background: var(--theme);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     width: 33px;
     height: 33px;
     border: none;
     margin: 0 2px;
     font-weight: bold;
     cursor: pointer;
-    color: #fff;
-
-    &:hover {
-      background: var(--theme-hover);
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      filter: saturate(10%);
-      cursor: default;
-    }
 
     svg {
       width: 16px;
