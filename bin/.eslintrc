@@ -1,0 +1,11 @@
+{
+  "root": true,
+  "extends": ["plugin:node/recommended"],
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  }
+}

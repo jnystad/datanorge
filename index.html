@@ -5,24 +5,32 @@
     <link rel="icon" type="image/svg+xml" href="/src/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#105AC1" />
-    <meta
-      name="description"
-      content="Oversiktsside over åpne datasett i Norge, som publisert av data.norge.no"
-    />
+    <meta name="description" content="Oversiktsside over åpne datasett i Norge, som publisert av data.norge.no" />
     <title>Register over åpne datasett i Norge</title>
+    <style type="text/css">
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #11191f;
+          color: #fff;
+        }
+      }
+      #placeholder {
+        font-family: sans-serif;
+        padding: 1rem;
+      }
+    </style>
   </head>
   <body>
     <div id="root">
-      <header>
+      <div id="placeholder">
         <h1>Register over åpne datasett i Norge</h1>
-      </header>
-      <p style="max-width: 1200px">
-        Dette er en forenklet og kompakt oversikt over datasett og APIer
-        publisert av offentlige organer og andre norske organisasjoner.
-        Informasjonen er hentet fra data.norge.no, og dette er en alternativ
-        måte å søke etter publiserte data. Bruk søket i hjørnet for å søke på
-        forvalter, tittel, beskrivelse og nøkkelord, eller filtrer nedenfor.
-      </p>
+
+        <p style="max-width: 1200px">
+          Dette er en forenklet og kompakt oversikt over datasett og APIer publisert av offentlige organer og andre
+          norske organisasjoner. Informasjonen er hentet fra data.norge.no, og dette er en alternativ måte å søke etter
+          publiserte data.
+        </p>
+      </div>
     </div>
     <script type="module" src="/src/main.tsx"></script>
 

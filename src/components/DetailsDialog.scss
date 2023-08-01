@@ -1,16 +1,17 @@
-.formats {
+.details-dialog {
   article {
-    width: 70vw;
+    width: clamp(400px, 80vw, 1200px);
     max-width: 1200px;
 
     header {
       font-weight: bold;
+      margin-bottom: 1rem;
     }
   }
 
   .description {
-    white-space: pre-wrap;
     opacity: 0.75;
+    margin-bottom: 1rem;
   }
 
   ul {
@@ -19,5 +20,9 @@
     li {
       margin: 5px 0;
     }
+  }
+
+  :not(thead, tfoot) > * > td {
+    --font-size: 1em;
   }
 }

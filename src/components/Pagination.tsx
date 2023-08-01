@@ -1,44 +1,44 @@
 import { useEffect } from "react";
-import { UsePaginationInstanceProps, UsePaginationState } from "react-table";
-import { Dataset } from "../types";
+import { Dataset } from "../types/Dataset";
+import { Table } from "@tanstack/react-table";
 import "./Pagination.scss";
 
 interface PaginationProps {
-  table: UsePaginationInstanceProps<Dataset> & {
-    state: UsePaginationState<Dataset>;
-  };
+  table: Table<Dataset>;
 }
 
 function Pagination({ table }: PaginationProps) {
   const {
-    canPreviousPage,
-    canNextPage,
-    pageCount,
-    gotoPage,
+    getCanNextPage,
+    getCanPreviousPage,
+    getPageCount,
+    setPageIndex,
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    getState,
   } = table;
+
+  const { pageIndex, pageSize } = getState().pagination;
 
   useEffect(() => window.scrollTo(0, 0), [pageIndex]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.code === "ArrowLeft") {
+      if (e.altKey && e.code === "ArrowLeft") {
         e.preventDefault();
         e.stopPropagation();
-        canPreviousPage && previousPage();
+        getCanPreviousPage() && previousPage();
       }
-      if (e.ctrlKey && e.code === "ArrowRight") {
+      if (e.altKey && e.code === "ArrowRight") {
         e.preventDefault();
         e.stopPropagation();
-        canNextPage && nextPage();
+        getCanNextPage() && nextPage();
       }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [canPreviousPage, previousPage, canNextPage, nextPage]);
+  }, [previousPage, nextPage, getCanPreviousPage, getCanNextPage]);
 
   useEffect(() => {
     localStorage.setItem("datanorge-pageSize", String(pageSize));
@@ -47,55 +47,31 @@ function Pagination({ table }: PaginationProps) {
   return (
     <div className="pagination">
       <div className="pagination--buttons">
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+        <button onClick={() => setPageIndex(0)} disabled={!getCanPreviousPage()}>
           <svg viewBox="0 0 14 14">
-            <path
-              d="M13,3l-6,5l6,5M7,3l-6,5l6,5"
-              fill="none"
-              strokeWidth={2}
-              stroke="currentColor"
-            />
+            <path d="M13,3l-6,5l6,5M7,3l-6,5l6,5" fill="none" strokeWidth={2} stroke="currentColor" />
           </svg>
         </button>
-        <button onClick={previousPage} disabled={!canPreviousPage}>
+        <button onClick={previousPage} disabled={!getCanPreviousPage()}>
           <svg viewBox="0 0 14 14">
-            <path
-              d="M9,3l-6,5l6,5"
-              fill="none"
-              strokeWidth={2}
-              stroke="currentColor"
-            />
+            <path d="M9,3l-6,5l6,5" fill="none" strokeWidth={2} stroke="currentColor" />
           </svg>
         </button>
         <span>
-          Side {pageIndex + 1} av {pageCount}
+          Side {pageIndex + 1} av {getPageCount()}
         </span>
-        <button onClick={nextPage} disabled={!canNextPage}>
+        <button onClick={nextPage} disabled={!getCanNextPage()}>
           <svg viewBox="0 0 14 14">
-            <path
-              d="M5,3l6,5l-6,5"
-              fill="none"
-              strokeWidth={2}
-              stroke="currentColor"
-            />
+            <path d="M5,3l6,5l-6,5" fill="none" strokeWidth={2} stroke="currentColor" />
           </svg>
         </button>
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+        <button onClick={() => setPageIndex(getPageCount() - 1)} disabled={!getCanNextPage()}>
           <svg viewBox="0 0 14 14">
-            <path
-              d="M1,3l6,5l-6,5M7,3l6,5l-6,5"
-              fill="none"
-              strokeWidth={2}
-              stroke="currentColor"
-            />
+            <path d="M1,3l6,5l-6,5M7,3l6,5l-6,5" fill="none" strokeWidth={2} stroke="currentColor" />
           </svg>
         </button>
       </div>
-      <select
-        style={{ width: "140px" }}
-        value={pageSize}
-        onChange={(e) => setPageSize(parseInt(e.target.value))}
-      >
+      <select style={{ width: "140px" }} value={pageSize} onChange={(e) => setPageSize(parseInt(e.target.value))}>
         <option value="20">20 per side</option>
         <option value="50">50 per side</option>
         <option value="100">100 per side</option>

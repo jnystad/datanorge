@@ -9,7 +9,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api": "https://data-norge.nystad.io",
+      "/api": "http://localhost:3001",
     },
   },
 });

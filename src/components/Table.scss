@@ -10,11 +10,6 @@
     border-bottom: 1px solid var(--table-border-color);
   }
 
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
   .header,
   .cell {
     flex-grow: 1;
@@ -35,6 +30,7 @@
 
   .cell-publisher {
     width: 100%;
+    background-color: rgba(96, 96, 96, 0.1);
   }
 
   .header-publisher,
@@ -43,7 +39,12 @@
   }
 
   .cell-title {
-    padding-left: 20px;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    span {
+      flex-grow: 1;
+    }
   }
 
   .header-title {
@@ -72,15 +73,24 @@
 
   .header-distribution,
   .cell-distribution {
-    flex: 1 1 120px;
-    white-space: normal;
-    button {
-      margin: 0;
-      font-size: 14px;
-    }
+    flex: 0 0 80px;
   }
 
   .tbody .row:nth-child(2n + 1) {
     background-color: var(--table-row-stripped-background-color);
+  }
+
+  .tbody .row {
+    display: flex;
+    flex-wrap: wrap;
+
+    &:not(.publisher) {
+      cursor: pointer;
+      transition: background-color 0.2s ease-out;
+
+      &:hover {
+        background-color: rgba(96, 96, 96, 0.15);
+      }
+    }
   }
 }

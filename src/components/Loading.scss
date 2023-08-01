@@ -4,8 +4,22 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(96, 96, 96, 0.5);
+  background: rgba(96, 96, 96, 0.25);
   z-index: 100;
+
+  opacity: 0;
+  animation: fadein 300ms ease-out;
+  animation-delay: 500ms;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .loading {

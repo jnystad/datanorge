@@ -1,12 +1,6 @@
 import { useRef, useEffect, useState } from "react";
-import { DatasetTableInstance } from "../types";
 
-function Search({ table }: { table: DatasetTableInstance }) {
-  const {
-    state: { globalFilter },
-    setGlobalFilter,
-  } = table;
-
+function Search({ onChange }: { onChange: (value: string) => void }) {
   const ref = useRef<HTMLInputElement>(null);
 
   const [query, setQuery] = useState("");
@@ -25,21 +19,22 @@ function Search({ table }: { table: DatasetTableInstance }) {
 
   useEffect(() => {
     if (!query) {
-      setGlobalFilter("");
+      onChange("");
       return;
     }
-    const tId = setTimeout(() => setGlobalFilter(query), 500);
+    const tId = setTimeout(() => onChange(query), 500);
     return () => clearTimeout(tId);
-  }, [setGlobalFilter, query]);
+  }, [onChange, query]);
 
   return (
     <input
       ref={ref}
       type="search"
       name="search"
-      placeholder="Søk (ctrl+s)"
+      placeholder="Søk på nøkkelord, tema, forvalter, osv."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      autoFocus
     />
   );
 }

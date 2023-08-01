@@ -1,56 +1,46 @@
-import { DatasetTableInstance } from "../types";
+import { useState } from "react";
+import { Table as TableModel, flexRender } from "@tanstack/react-table";
+import { Dataset } from "../types/Dataset";
+import { DetailsDialog } from "./DetailsDialog";
 import "./Table.scss";
 
-function Table({ table }: { table: DatasetTableInstance }) {
-  const { getTableBodyProps, getTableProps, page, headerGroups, prepareRow } =
-    table;
-
+function Table({ table }: { table: TableModel<Dataset> }) {
   let prevPublisher: string;
+  const [showDetails, setShowDetails] = useState<Dataset>();
 
   return (
-    <div className="table" {...getTableProps()}>
-      <div className="thead">
-        {headerGroups.map((headerGroup, i) => (
-          <div className="row" key={i}>
-            {headerGroup.headers.map((column: any) => (
-              <span
-                className={"header header-" + column.id}
-                {...column.getHeaderProps()}
-              >
-                {column.render("Header")}
-                <div className="filter">
-                  {column.canFilter ? column.render("Filter") : null}
+    <>
+      <div className="table">
+        <div className="tbody">
+          {table.getRowModel().rows.map((row) => {
+            const publisher = row.getValue("publisher") as string;
+            const isNewPublisher = publisher !== prevPublisher;
+            prevPublisher = publisher;
+
+            return (
+              <>
+                {isNewPublisher && (
+                  <div className="row publisher" key={row.id + "_publisher"}>
+                    <span className="cell cell-publisher">{publisher}</span>
+                  </div>
+                )}
+                <div className="row" key={row.id} onClick={() => setShowDetails(row.original)}>
+                  {row.getVisibleCells().map(
+                    (cell) =>
+                      cell.column.id !== "publisher" && (
+                        <span key={cell.id} className={"cell cell-" + cell.column.id}>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </span>
+                      )
+                  )}
                 </div>
-              </span>
-            ))}
-          </div>
-        ))}
+              </>
+            );
+          })}
+        </div>
       </div>
-      <div className="tbody" {...getTableBodyProps()}>
-        {page.map((row) => {
-          prepareRow(row);
-
-          const isNewPublisher = row.values.publisher !== prevPublisher;
-          prevPublisher = row.values.publisher;
-
-          return (
-            <div className="row" {...row.getRowProps()}>
-              {row.cells.map(
-                (cell) =>
-                  (cell.column.id !== "publisher" || isNewPublisher) && (
-                    <span
-                      className={"cell cell-" + cell.column.id}
-                      {...cell.getCellProps()}
-                    >
-                      {cell.render("Cell")}
-                    </span>
-                  )
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
+      {showDetails && <DetailsDialog entry={showDetails} onClose={() => setShowDetails(undefined)} />}
+    </>
   );
 }
 

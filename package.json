@@ -2,22 +2,21 @@
   "name": "datanorge",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@picocss/pico": "^1.5.10",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-table": "^7.8.0",
-    "superagent": "^8.0.0"
+  "engines": {
+    "node": ">=18.0.0"
   },
   "scripts": {
-    "start": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "start": "npm-run-all -p server vite",
+    "vite": "vite",
+    "check": "npm-run-all -p check:*",
+    "check:lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+    "check:types": "tsc --noEmit",
+    "server": "nodemon -w bin bin/server.js",
+    "build": "tsc && vite build"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "https://data-norge.nystad.io",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -30,17 +29,35 @@
       "last 1 safari version"
     ]
   },
+  "dependencies": {
+    "@picocss/pico": "^1.5.10",
+    "@tabler/icons-react": "^2.30.0",
+    "@tanstack/react-table": "^8.9.3",
+    "axios": "^1.4.0",
+    "chokidar": "^3.5.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "marked": "^6.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sanitize-html": "^2.11.0",
+    "sqlite3": "^5.1.6"
+  },
   "devDependencies": {
     "@types/node": "^17.0.8",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
-    "@types/react-table": "^7.7.12",
-    "@types/superagent": "^4.1.15",
-    "@vercel/node": "^2.5.2",
-    "@vitejs/plugin-react": "^2.0.0",
-    "node-fetch": "^3.2.10",
-    "sass": "^1.54.0",
-    "typescript": "^4.7.4",
-    "vite": "^3.0.4"
+    "@types/sanitize-html": "^2.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.46.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react": "^7.33.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "nodemon": "^3.0.1",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.64.1",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.7"
   }
 }
